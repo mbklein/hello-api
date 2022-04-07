@@ -50,3 +50,11 @@ provider "aws" {
     sts            = var.localstack_endpoint
   }
 }
+
+module "api" {
+  source = "../hello-api"
+}
+
+output "endpoint" {
+  value = module.api.endpoint
+}

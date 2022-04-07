@@ -1,1 +1,0 @@
-{"filename": "builds/035b77bc9a12f05923277f0c885a2b476f3a4f3a0c7289293256ae337307a7ed.zip", "runtime": "nodejs14.x", "artifacts_dir": "builds", "build_plan": [["npm", "nodejs14.x", "./POCFunction/package.json", null, null], ["zip", "./POCFunction", null]]}

@@ -2,3 +2,6 @@
 *.tfstate
 *.tfstate*
 .DS_Store
+
+**/node_modules
+**/builds
