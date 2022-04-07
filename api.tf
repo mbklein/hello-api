@@ -10,7 +10,7 @@ module "lambda_function" {
 }
 
 data "template_file" "poc-hello-definition" {
-  template = file("${path.module}/api_gateway_definition.yml")
+  template = file("${path.module}/api_gateway_definition.json")
 
   vars = {
     lambda_invocation_arn = module.lambda_function.lambda_function_invoke_arn
@@ -43,4 +43,8 @@ resource "aws_api_gateway_stage" "poc-hello-gateway-stage" {
   deployment_id = aws_api_gateway_deployment.poc-hello-gateway-deployment.id
   rest_api_id   = aws_api_gateway_rest_api.poc-hello-rest-api.id
   stage_name    = "dev"
+}
+
+output "endpoint" {
+  value = aws_api_gateway_stage.poc-hello-gateway-stage.invoke_url
 }

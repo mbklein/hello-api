@@ -1,0 +1,20 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "POC-API-LAMBDA"
+  },
+  "paths": {
+    "/hello": {
+      "get": {
+        "responses": {},
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "httpMethod": "POST",
+          "uri": "${lambda_invocation_arn}",
+          "passthroughBehavior": "when_no_match"
+        }
+      }
+    }
+  }
+}
