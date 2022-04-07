@@ -6,7 +6,12 @@ module "lambda_function" {
   handler       = "app.lambdaHandler"
   runtime       = "nodejs14.x"
 
-  source_path = "${path.module}/POCFunction"
+  source_path = [
+    {
+      path = "${path.module}/POCFunction"
+      commands = ["npm install --only prod --no-bin-links --no-fund", ":zip"]
+    }
+  ]
 }
 
 data "template_file" "poc-hello-definition" {
@@ -43,6 +48,12 @@ resource "aws_api_gateway_stage" "poc-hello-gateway-stage" {
   deployment_id = aws_api_gateway_deployment.poc-hello-gateway-deployment.id
   rest_api_id   = aws_api_gateway_rest_api.poc-hello-rest-api.id
   stage_name    = "dev"
+}
+
+resource "aws_ssm_parameter" "poc-hello-gateway-endpoint" {
+  name    = "/poc-hello-gateway/endpoint"
+  value   = aws_api_gateway_stage.poc-hello-gateway-stage.invoke_url
+  type    = "String"
 }
 
 output "endpoint" {
